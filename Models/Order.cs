@@ -1,0 +1,20 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Library_test.Models;
+class Order
+{
+    public int Id { get; set; }
+
+    [Required]
+    [Display(Name = "Customer Name")]
+    public string CustomerEmail { get; set; }
+
+    public DateTime OrderDate { get; set; } = DateTime.Now;
+
+    public List<OrderItem> OrderItems { get; set; } = new();
+
+    [Display(Name = "Total Price")]
+    [Column(TypeName ="decimal(10,2)")]
+    public decimal TotalPrice { get; set; }
+}
