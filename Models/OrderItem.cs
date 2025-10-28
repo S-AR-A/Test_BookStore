@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Library_test.Models;
 
-class OrderItem
+namespace Library_test.Models
+{
+public class OrderItem
 {
     public int Id { get; set; }
 
@@ -17,11 +19,12 @@ class OrderItem
 
     [Range(1, 100)]
     public int Quantity { get; set; }
-    
+
     [Column(TypeName = "decimal(10,2)")]
     public decimal UnitPrice { get; set; }
 
     [NotMapped]
     public decimal LinePrice => Quantity * UnitPrice;
 
+}
 }
