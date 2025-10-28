@@ -9,11 +9,11 @@ namespace Library_test.Models
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [StringLength(70)]
-        public string Auther { get; set; }
+        public string Author { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Publish_Date { get; set; }

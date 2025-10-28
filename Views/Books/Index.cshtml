@@ -1,0 +1,26 @@
+@model IEnumerable<Library_test.Models.Book>
+
+<h2>Books</h2>
+<a asp-action="Create" class="btn btn-primary">Add New Book</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Title</td>
+            <td>@book.Author</td>
+            <td>@book.Price</td>
+            <td>@book.Genre</td>
+        </tr>
+    }
+    </tbody>
+</table>
