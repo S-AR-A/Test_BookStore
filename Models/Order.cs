@@ -16,6 +16,10 @@ namespace Library_test.Models
         [Display(Name = "Customer Email")]
         public string CustomerEmail { get; set; }
 
+        [Required]
+        [StringLength(400)]
+        public string Address { get; set; }
+
         public DateTime OrderDate { get; set; } = DateTime.Now;
 
         public List<OrderItem> OrderItems { get; set; } = new();

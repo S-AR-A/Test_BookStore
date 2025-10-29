@@ -1,0 +1,48 @@
+@model List<Library_test.Models.CartItem>
+
+<h2>Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <p>Your cart is empty.</p>
+    <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Browse Books</a>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Price * item.Quantity)</td>
+                    <td>
+                        <form asp-controller="Cart" asp-action="Remove" method="post" style="display:inline;">
+                            <input type="hidden" name="bookId" value="@item.BookId" />
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total: @Model.Sum(i => i.Price * i.Quantity).ToString("C")</h4>
+
+    <form asp-controller="Cart" asp-action="Clear" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-warning">Clear Cart</button>
+    </form>
+
+    <a asp-controller="Checkout" asp-action="Index" class="btn btn-success">Checkout</a>
+}

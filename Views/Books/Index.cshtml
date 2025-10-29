@@ -1,26 +1,49 @@
-@model IEnumerable<Library_test.Models.Book>
+@model Library_test.Models.BookListViewModel
 
 <h2>Books</h2>
 <a asp-action="Create" class="btn btn-primary">Add New Book</a>
 
-<table class="table mt-3">
+<form method="get" asp-controller="Books" asp-action="Index">
+    <div class="mb-3">
+        <label><strong>Filter by Genre:</strong></label><br />
+        @foreach (var genre in Model.Genres)
+        {
+            <label style="margin-right: 10px;">
+                <input type="checkbox" name="selectedGenres" value="@genre" @(Model.SelectedGenres != null &&
+                                                                                            Model.SelectedGenres.Contains(genre) ? "checked" : "") />
+                @genre
+            </label>
+        }
+        <button type="submit" class="btn btn-sm btn-primary ms-2">Apply</button>
+        <a asp-action="Index" class="btn btn-sm btn-secondary ms-1">Clear</a>
+    </div>
+</form>
+
+<table class="table">
     <thead>
         <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Price</th>
             <th>Genre</th>
+            <th>Price</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var book in Model)
-    {
-        <tr>
-            <td>@book.Title</td>
-            <td>@book.Author</td>
-            <td>@book.Price</td>
-            <td>@book.Genre</td>
-        </tr>
-    }
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.Price</td>
+                <td>
+                    <form asp-action="AddToCart" method="post" style="display:inline;">
+                        <input type="hidden" name="bookId" value="@book.Id" />
+                        <button type="submit" class="btn btn-sm btn-success">Add to Cart</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>
