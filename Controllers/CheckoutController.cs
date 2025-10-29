@@ -48,12 +48,14 @@ namespace YourAppName.Controllers
 
             if (ModelState.IsValid)
             {
+                var total = cart.Sum(c => c.Price * c.Quantity);
                 var newOrder = new Order
                 {
                     CustomerName = order.CustomerName,
                     CustomerEmail = order.CustomerEmail,
                     Address = order.Address,
                     OrderDate = DateTime.Now,
+                    TotalPrice = total,
                     OrderItems = [.. cart.Select(c => new OrderItem
                     {
                         BookId = c.BookId,
