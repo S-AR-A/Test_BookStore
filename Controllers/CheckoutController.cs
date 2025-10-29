@@ -15,7 +15,6 @@ namespace YourAppName.Controllers
             _context = context;
         }
 
-        // STEP 1: Show checkout form
         [HttpGet]
         public IActionResult Index()
         {
@@ -30,7 +29,6 @@ namespace YourAppName.Controllers
             return View(new Order()); // empty order for form binding
         }
 
-        // STEP 2: Process checkout form
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index(Order order)
@@ -67,7 +65,6 @@ namespace YourAppName.Controllers
                 _context.Orders.Add(newOrder);
                 _context.SaveChanges();
 
-                // Clear the cart after successful order
                 HttpContext.Session.Remove("Cart");
 
                 TempData["SuccessMessage"] = "Order placed successfully!";
@@ -77,7 +74,6 @@ namespace YourAppName.Controllers
             return View(order);
         }
 
-        // STEP 3: Confirmation page
         public IActionResult Success(int orderId)
         {
             var order = _context.Orders

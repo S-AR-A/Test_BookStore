@@ -1,0 +1,37 @@
+@model List<Library_test.Models.Order>
+
+<h2>Orders history🗓️</h2>
+
+@if (!Model.Any())
+{
+    <p>No orders!</p>
+    <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Browse Books</a>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>CustomerName</th>
+                <th>CustomerEmail</th>
+                <th>Address</th>
+                <th>Order Date</th>
+                <th>Total Price</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.CustomerName</td>
+                    <td>@order.CustomerEmail</td>
+                    <td>@order.Address</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.TotalPrice.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
