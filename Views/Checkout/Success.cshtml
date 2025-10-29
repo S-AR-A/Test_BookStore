@@ -1,0 +1,38 @@
+@model Library_test.Models.Order
+
+<h2>✅ Order Successful!</h2>
+
+<p>Thank you for your order, <strong>@Model.CustomerEmail</strong>.</p>
+<p><strong>Shipping address:</strong> @Model.Address</p>
+<p><strong>Order Date:</strong> @Model.OrderDate.ToString("g")</p>
+
+<hr />
+
+<h4>Order Items</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Book.Title</td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitPrice</td>
+                <td>@(item.Quantity * item.UnitPrice)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4 class="mt-3">Total: @Model.OrderItems.Sum(i => i.UnitPrice * i.Quantity).ToString("C")</h4>
+
+<hr />
+
+<a asp-controller="Books" asp-action="Index" class="btn btn-primary">Continue Browsing</a>
